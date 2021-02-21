@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Recipe } from './recipe.model';
 import { RecipesService } from './recipes.service';
 
@@ -11,10 +12,15 @@ export class RecipesPage implements OnInit {
   recipes: Recipe[];
 
 
-  constructor(private recipesService: RecipesService) { }
+  constructor(
+      private recipesService: RecipesService,
+      private activatedRoute: ActivatedRoute,
+    ) { }
 
   ngOnInit() {
-    this.recipes = this.recipesService.getAllRecipes();
+    this.activatedRoute.url.subscribe(() => {
+      this.recipes = this.recipesService.getAllRecipes();
+    });
   }
 
 }
